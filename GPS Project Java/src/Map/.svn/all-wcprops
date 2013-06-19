@@ -1,0 +1,143 @@
+K 25
+svn:wc:ra_dav:version-url
+V 40
+/svn/!svn/ver/91/NaviGPS%200.9.5/src/Map
+END
+ShortestPath.java
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/svn/!svn/ver/87/NaviGPS%200.9.5/src/Map/ShortestPath.java
+END
+Graph.java
+K 25
+svn:wc:ra_dav:version-url
+V 51
+/svn/!svn/ver/59/NaviGPS%200.9.5/src/Map/Graph.java
+END
+CurrentLocation.java
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svn/!svn/ver/87/NaviGPS%200.9.5/src/Map/CurrentLocation.java
+END
+Coastline.java
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/svn/!svn/ver/87/NaviGPS%200.9.5/src/Map/Coastline.java
+END
+StreetView.java
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/svn/!svn/ver/87/NaviGPS%200.9.5/src/Map/StreetView.java
+END
+GeoLocation.java
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/svn/!svn/ver/91/NaviGPS%200.9.5/src/Map/GeoLocation.java
+END
+Highways.java
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/svn/!svn/ver/87/NaviGPS%200.9.5/src/Map/Highways.java
+END
+PlaceMarksView.java
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/!svn/ver/87/NaviGPS%200.9.5/src/Map/PlaceMarksView.java
+END
+Geocaches.java
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/svn/!svn/ver/87/NaviGPS%200.9.5/src/Map/Geocaches.java
+END
+Node.java
+K 25
+svn:wc:ra_dav:version-url
+V 50
+/svn/!svn/ver/60/NaviGPS%200.9.5/src/Map/Node.java
+END
+StreetViewIcon.java
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/!svn/ver/85/NaviGPS%200.9.5/src/Map/StreetViewIcon.java
+END
+Buildings.java
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/svn/!svn/ver/87/NaviGPS%200.9.5/src/Map/Buildings.java
+END
+PlaceMarks.java
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/svn/!svn/ver/87/NaviGPS%200.9.5/src/Map/PlaceMarks.java
+END
+Map.java
+K 25
+svn:wc:ra_dav:version-url
+V 49
+/svn/!svn/ver/68/NaviGPS%200.9.5/src/Map/Map.java
+END
+MapFileReader.java
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svn/!svn/ver/87/NaviGPS%200.9.5/src/Map/MapFileReader.java
+END
+Amenities.java
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/svn/!svn/ver/87/NaviGPS%200.9.5/src/Map/Amenities.java
+END
+Dijkstra.java
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/svn/!svn/ver/59/NaviGPS%200.9.5/src/Map/Dijkstra.java
+END
+Edges.java
+K 25
+svn:wc:ra_dav:version-url
+V 51
+/svn/!svn/ver/59/NaviGPS%200.9.5/src/Map/Edges.java
+END
+Bounds.java
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/svn/!svn/ver/59/NaviGPS%200.9.5/src/Map/Bounds.java
+END
+Weather.java
+K 25
+svn:wc:ra_dav:version-url
+V 53
+/svn/!svn/ver/91/NaviGPS%200.9.5/src/Map/Weather.java
+END
+WeatherCheck.java
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/svn/!svn/ver/91/NaviGPS%200.9.5/src/Map/WeatherCheck.java
+END
+WayPoints.java
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/svn/!svn/ver/63/NaviGPS%200.9.5/src/Map/WayPoints.java
+END
+RssParser.java
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/svn/!svn/ver/91/NaviGPS%200.9.5/src/Map/RssParser.java
+END

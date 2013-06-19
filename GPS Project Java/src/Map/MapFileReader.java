@@ -1,0 +1,360 @@
+package Map;
+import java.io.File;
+import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedList;
+
+import javax.xml.parsers.SAXParser;
+import javax.xml.parsers.SAXParserFactory;
+
+import org.xml.sax.Attributes;
+import org.xml.sax.SAXException;
+import org.xml.sax.helpers.DefaultHandler;
+
+/**
+ * This class Parsing the data from the XML file using SAX parser
+ * @author Rated-R Coder: Rashid Darwish
+ *
+ */
+public class MapFileReader {
+
+    private HashMap<String, Node> nodesMap = new HashMap<String, Node>();
+    private HashMap<String, WayPoints> waysPointsMap = new HashMap<String, WayPoints>();
+    private HashMap<String, WayPoints> buildingsMap = new HashMap<String, WayPoints>();
+    private HashMap<String, WayPoints> highwayMap = new HashMap<String, WayPoints>();
+    private HashMap<String, WayPoints> coastlineMap = new HashMap<String, WayPoints>();
+    private HashMap<String, WayPoints> amenityMap = new HashMap<String, WayPoints>();
+    private HashMap<String, WayPoints> routeFerryMap = new HashMap<String, WayPoints>();
+    private HashMap<String, WayPoints> constructionMap = new HashMap<String, WayPoints>();
+    private HashMap<String, WayPoints> woodMap = new HashMap<String, WayPoints>();
+    private HashMap<String, PlaceMarks> placesMap = new HashMap<String, PlaceMarks>();
+    private Bounds bounds;
+    private String id;
+    private String placeKey;
+    private ArrayList<Edges> edgesList = new ArrayList<Edges>();
+    private DecimalFormat roundObj;
+    private Graph graph;
+    private Dijkstra dj;
+    private LinkedList<Node> path;
+	private double distance;
+    
+	/**
+	 * MapFileReader Constructor 
+	 */
+	MapFileReader(){
+    	roundObj = new DecimalFormat("######0.00");
+    }
+	
+    /**
+     * Reading the XML file
+     */
+    public void read() {
+
+        try {
+            SAXParserFactory factory = SAXParserFactory.newInstance();
+            SAXParser saxParser = factory.newSAXParser();
+            DefaultHandler handler = new DefaultHandler() {
+
+                @Override
+				public void startElement(String uri, String localName,
+                        String qName, Attributes attributes)
+                        throws SAXException {
+
+                    if (qName.equalsIgnoreCase("node")) {
+                        setNodes(attributes);
+                    }
+                    if (qName.equalsIgnoreCase("bounds")) {
+                        setBounds(attributes);
+                    }
+                    if (qName.equalsIgnoreCase("way") || qName.equalsIgnoreCase("tag") || qName.equalsIgnoreCase("nd")) {
+                        setWays(qName, attributes);
+                    }
+                    if (qName.equalsIgnoreCase("place") || (qName.equalsIgnoreCase("nod"))){
+                    	setPlaces(qName, attributes);
+                    }
+                }
+				@Override
+				public void endElement(String uri, String localName,
+                        String qName)
+                        throws SAXException {
+                }
+            };
+            saxParser.parse(new File("Map.xml"), handler);
+            saxParser.parse(new File("PlaceMarks.xml"), handler);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+	/**
+	 * sets the placemarks from the xml file
+	 * @param qName
+	 * @param attributes
+	 */
+	private void setPlaces(String qName, Attributes attributes) {
+		if (qName.equalsIgnoreCase("place")) {
+			placeKey = attributes.getValue("id");
+			placesMap.put(placeKey, new PlaceMarks(placeKey));
+			placesMap.get(placeKey).setKind(attributes.getValue("kind"));
+			placesMap.get(placeKey).setName(attributes.getValue("name"));
+		} else if (qName.equalsIgnoreCase("nod")) {
+			placesMap.get(placeKey).setRef(attributes.getValue("ref"));
+		}
+	}
+
+	/**
+	 * sets the waypoints from the xml file
+	 * @param qName
+	 * @param attributes
+	 */
+	private void setWays(String qName, Attributes attributes) {
+		if (qName.equalsIgnoreCase("way")) {
+			this.id = attributes.getValue("id");
+			waysPointsMap.put(id, new WayPoints(this.id));
+		} else if (qName.equalsIgnoreCase("nd")) {
+			waysPointsMap.get(id).setRef(attributes.getValue("ref"));
+		} else if (qName.equalsIgnoreCase("tag")
+				&& !this.waysPointsMap.isEmpty()) {
+			if (!attributes.getValue("k").equalsIgnoreCase("created_by")) {
+				waysPointsMap.get(id).setTags(
+						attributes.getValue("k") + " "
+								+ attributes.getValue("v"));
+				if (attributes.getValue("k").equalsIgnoreCase("building")) {
+					buildingsMap.put(id, waysPointsMap.get(id));
+				} else if (attributes.getValue("k").equalsIgnoreCase("highway")) {
+					this.highwayMap.put(id, waysPointsMap.get(id));
+				} else if (attributes.getValue("k").equalsIgnoreCase("natural")
+						&& attributes.getValue("v").equalsIgnoreCase(
+								"coastline")) {
+					this.coastlineMap.put(id, waysPointsMap.get(id));
+				} else if (attributes.getValue("k").equalsIgnoreCase("natural")
+						&& attributes.getValue("v").equalsIgnoreCase("wood")) {
+					this.woodMap.put(id, waysPointsMap.get(id));
+				} else if (attributes.getValue("k").equalsIgnoreCase("amenity")) {
+					this.amenityMap.put(id, waysPointsMap.get(id));
+				} else if (attributes.getValue("k").equalsIgnoreCase("route")
+						&& attributes.getValue("v").equalsIgnoreCase("ferry")) {
+					routeFerryMap.put(id, waysPointsMap.get(id));
+				} else if (attributes.getValue("k").equalsIgnoreCase(
+						"construction")
+						|| attributes.getValue("v").equalsIgnoreCase("construction")) {
+					constructionMap.put(id, waysPointsMap.get(id));
+				}
+			}
+		}
+	}    
+    
+	/**
+	 * Builds the edges
+	 */
+	public void createEdges() {
+		for (String s : highwayMap.keySet()) {
+			for (int i = 0; i+1 < this.highwayMap.get(s).getRef().size(); i++) {
+					edgesList.add(new Edges(nodesMap.get(highwayMap.get(s).getRef().get(i)),nodesMap.get(highwayMap.get(s).getRef().get(i+1)), 
+							distFrom(nodesMap.get(highwayMap.get(s).getRef().get(i)),nodesMap.get(highwayMap.get(s).getRef().get(i+1)))));
+			}
+			
+		}
+	}
+
+	/**
+	 * @param firstNode
+	 * @param secondNode
+	 * @return double Distance
+	 */
+	public double distFrom(Node firstNode, Node secondNode) {
+		double dLat = Math.toRadians(secondNode.getLat() - firstNode.getLat());
+		double dLng = Math.toRadians(secondNode.getLon() - firstNode.getLon());
+		double a = Math.sin(dLat / 2) * Math.sin(dLat / 2)
+				+ Math.cos(Math.toRadians(firstNode.getLat()))
+				* Math.cos(Math.toRadians(secondNode.getLat()))
+				* Math.sin(dLng / 2) * Math.sin(dLng / 2);
+		double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+		return Double.parseDouble(roundObj.format(3958.75 * c * 1609).replace(
+				",", "."));
+	}
+	
+	/**
+	 * Runs Dijkstra to find the shortestPath 
+	 * @param start
+	 * @param finalDestination
+	 */
+	public void locatePathes(Node start, Node finalDestination) {
+        graph = new Graph(nodesMap, edgesList);
+        dj = new Dijkstra(graph);
+        dj.run(start);
+        path = dj.getPathes(finalDestination);
+        if (path == null) {
+        	reverseIt(finalDestination, start);
+        } 
+        else {
+            gettingTheDistance(start, finalDestination);
+        }
+    }
+	/**
+	 * Reverse the nodes and search again 
+	 * @param start
+	 * @param finalDestination
+	 */
+	private void reverseIt(Node start, Node finalDestination) {
+        dj = new Dijkstra(graph);
+        dj.run(start);
+        path = dj.getPathes(finalDestination);
+        gettingTheDistance(start, finalDestination);
+    }
+    /**
+     * getting the Distance for the shortestPath
+     * @param start
+     * @param finalDestination
+     */
+    private void gettingTheDistance(Node start, Node finalDestination) {
+    	if (path != null) {
+            for (Node node : path) {
+            	distance = dj.getDistance().get(node);}
+        }else distance = 0.0;
+    }
+
+	/**
+	 * Node setter
+	 * @param id
+	 * @return Node
+	 */
+	public Node getNode(String id) {
+		return nodesMap.get(id);
+	}
+    /**
+     * set Nodes attributes
+     * @param attributes
+     */
+    private void setNodes(Attributes attributes) {
+        nodesMap.put(attributes.getValue("id"), new Node(attributes.getValue("id"), attributes.getValue("lat"), attributes.getValue("lon")));
+    }
+
+    /**
+     * set Bounds attributes
+     * @param attributes
+     */
+    private void setBounds(Attributes attributes) {
+        this.bounds = new Bounds(attributes.getValue("minlat"), attributes.getValue("maxlat"), attributes.getValue("minlon"), attributes.getValue("maxlon"));
+    }
+
+    /**
+     * Bounds getter
+     * @return bounds
+     */
+    public Bounds getBounds() {
+        return bounds;
+    }
+
+    /**
+     * NodesMap getter
+     * @return nodesMap
+     */
+    public HashMap<String, Node> getNodesMap() {
+        return nodesMap;
+    }
+
+    /**
+     * buildings getter
+     * @return buildingsMap
+     */
+    public HashMap<String, WayPoints> getBuildingsMap() {
+        return buildingsMap;
+    }
+
+    /**
+     * amenityMap getter
+     * @return amenityMap
+     */
+    public HashMap<String, WayPoints> getAmenityMap() {
+        return amenityMap;
+    }
+
+    /**
+     * coastLineMap getter
+     * @return coastlineMap
+     */
+    public HashMap<String, WayPoints> getCoastlineMap() {
+        return coastlineMap;
+    }
+
+    /**
+     * highwayMap getter
+     * @return highwayMap
+     */
+    public HashMap<String, WayPoints> getHighwayMap() {
+        return highwayMap;
+    }
+
+    /**
+     * waysPointsMap getter
+     * @return waysPointsMap
+     */
+    public HashMap<String, WayPoints> getWaysPointsMap() {
+        return waysPointsMap;
+    }
+
+    /**
+     * routeFerryMap getter
+     * @return routeFerryMap
+     */
+    public HashMap<String, WayPoints> getRouteFerryMap() {
+        return routeFerryMap;
+    }
+
+    /**
+     * constructionMap getter
+     * @return constructionMap
+     */
+    public HashMap<String, WayPoints> getConstructionMap() {
+        return constructionMap;
+    }
+    /**
+     * woodMap getter
+     * @return woodMap
+     */
+    public HashMap<String, WayPoints> getWoodMap() {
+        return woodMap;
+    }
+    
+    /**
+     * the Path getter
+	 * @return Path
+	 */
+    public LinkedList<Node> getPath() {
+		return path;
+	}
+
+	/**
+	 * placesMap getter
+	 * @return placesMap
+	 */
+	public HashMap<String, PlaceMarks> getPlacesMap() {
+		return placesMap;
+	}
+
+	/**
+	 * the placesMap setter
+	 * @param placesMap
+	 */
+	public void setPlacesMap(HashMap<String, PlaceMarks> placesMap) {
+		this.placesMap = placesMap;
+	}
+	/**
+	 * distance getter
+	 * @return the distance
+	 */
+	public double getDistance() {
+		return distance;
+	}
+
+	/**
+	 * distance setter
+	 * @param distance the distance to set
+	 */
+	public void setDistance(double distance) {
+		this.distance = distance;
+	}
+    
+}

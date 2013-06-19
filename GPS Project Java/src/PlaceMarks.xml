@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<osm version="0.6" generator="CGImap 0.0.2">
+ <place id="27017522" kind="parking" name="parking">
+  <nod ref="296148786"/>
+ </place>
+ <place id="27121321" kind="building" name="uni">
+  <nod ref="297560421"/>
+  <nod ref="297560423"/>
+ </place>
+ <place id="26264080" kind="parking" name="parking">
+  <nod ref="287661634"/>
+ </place>
+ <place id="88886662" kind="building" name="sciencepark">
+  <nod ref="1031741813"/>
+  <nod ref="296143650"/>
+ </place>
+ <place id="27121311" kind="building" name="uni">
+  <nod ref="297560338"/>
+  <nod ref="297560341"/>
+ </place>
+ <place id="24382913" kind="parking" name="parking">
+  <nod ref="264569491"/>
+ </place>
+ <place id="26681275" kind="building" name="restaurant">
+  <nod ref="292620395"/>
+  <nod ref="292620397"/>
+ </place>
+ <place id="28737150" kind="ferry" name="ferry">
+  <nod ref="315979594"/>
+ </place>
+ <place id="27017270" kind="building" name="ericsson">
+  <nod ref="296144030"/>
+  <nod ref="296144658"/>
+ </place>
+ <place id="27121341" kind="cafe" name="cafe">
+  <nod ref="297560680"/>
+ </place>
+ <place id="26751333" kind="Resturant" name="restaurant">
+  <nod ref="293429151"/>
+ </place>
+ <place id="24382875" kind="parking" name="parking">
+  <nod ref="264569389"/>
+ </place>
+ <place id="26998826" kind="parking" name="parking">
+  <nod ref="295938139"/>
+ </place>
+ <place id="30950787" kind="ferry" name="ferry">
+  <nod ref="344123149"/>
+ </place>
+ <place id="88216093" kind="parking" name="parking">
+  <nod ref="1024929189"/>
+ </place>
+ <place id="26264070" kind="parking" name="parking">
+  <nod ref="287661256"/>
+ </place>
+ <place id="88886656" kind="building" name="Kuggen">
+  <nod ref="1031741769"/>
+  <nod ref="1031741803"/>
+ </place>
+ <place id="27121303" kind="building" name="uni">
+  <nod ref="297560290"/>
+  <nod ref="297560293"/>
+ </place>
+ <place id="27121257" kind="building" name="uni">
+  <nod ref="297559823"/>
+  <nod ref="297559820"/>
+ </place>
+ <place id="88216874" kind="parking" name="parking">
+  <nod ref="1024937693"/>
+ </place>
+ <place id="28542894" kind="Bank" name="bank">
+  <nod ref="313538860"/>
+  <nod ref="313538858"/>
+ </place>
+</osm>

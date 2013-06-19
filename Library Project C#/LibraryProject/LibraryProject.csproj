@@ -1,0 +1,285 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{C77C2460-D672-4FB2-9904-DF9BF79D9E22}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>LibraryProject</RootNamespace>
+    <AssemblyName>LibraryProject</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Facebook, Version=5.0.26.0, Culture=neutral, PublicKeyToken=58cb4f2111d1e6de, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Debug\Facebook.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.DirectoryServices" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Books\Books.cs" />
+    <Compile Include="FacebookLoginDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FacebookLoginDialog.Designer.cs">
+      <DependentUpon>FacebookLoginDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="LibraryDB\DataBase.cs" />
+    <Compile Include="LibraryForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="LibraryForm.Designer.cs">
+      <DependentUpon>LibraryForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="LoginForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="LoginForm.Designer.cs">
+      <DependentUpon>LoginForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MainProgram.cs" />
+    <Compile Include="Managers\RegistrationManager.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="LibraryResource.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>LibraryResource.resx</DependentUpon>
+    </Compile>
+    <Compile Include="RegistrationForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="RegistrationForm.Designer.cs">
+      <DependentUpon>RegistrationForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Users\Contact.cs" />
+    <Compile Include="Users\Student.cs" />
+    <Compile Include="Users\Email.cs" />
+    <Compile Include="Users\InputsUtility.cs" />
+    <Compile Include="WikiForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="WikiForm.Designer.cs">
+      <DependentUpon>WikiForm.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="FacebookLoginDialog.resx">
+      <DependentUpon>FacebookLoginDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LibraryForm.resx">
+      <DependentUpon>LibraryForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LoginForm.resx">
+      <DependentUpon>LoginForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="LibraryResource.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>LibraryResource.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RegistrationForm.resx">
+      <DependentUpon>RegistrationForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WikiForm.resx">
+      <DependentUpon>WikiForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\LoginImage.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\BookShelf.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\BookShelfMain.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\RegistrationBG.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\LoginPage.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\BookShelf1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\book2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\NotAvailable.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Book1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\book3.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\book4.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\book5.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\book6.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\book7.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\book8.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\book9.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\book10.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\book11.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\book12.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\book13.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\book14.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\BookShelf2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\BookShelf3.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\BookShelf4.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Bubble .png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Login Page new.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\DataBase.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\JavaBook.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\JavaNetworkBook.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\JouranlACE.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\JouranlMEGaron2010.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\MagazineComputerShopper.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\MagazineLinux.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\MagazineMacWorld.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\MagazinenNewElectronics.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\MagazinenRPM.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\MagazinePC.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\MagazinePCWorld.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\MagazinePopularMechanicsjpeg.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\MagazineScientificA.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\MagazineWindows7.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\SoftwareEngineering1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\SoftwareEngineering2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\TheMythicalMan-Month.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Theory&amp;PracticeBook.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\VisualBasicBook.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\VisualBasicBook2.png" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
